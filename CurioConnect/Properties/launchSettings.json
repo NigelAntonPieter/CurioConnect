@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CurioConnect (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CurioConnect (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
