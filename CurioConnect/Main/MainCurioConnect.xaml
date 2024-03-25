@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <Page
+        x:Class="CurioConnect.Main.MainCurioConnect"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:CurioConnect.Main"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <StackPanel Grid.Column="0"
+                        Grid.Row="0"
+                        Background="#03357C" />
+            <StackPanel Grid.Column="0"
+                        Grid.Row="1"
+                        Background="#F8AECD" />
+            <StackPanel Grid.Column="1"
+                        Grid.Row="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                    <TextBlock>
+                     <Run Text="Curio"
+                          Foreground="#03357C"
+                          FontSize="80" />
+                         <Run Text="Connect"
+                              Foreground="#F8AECD"
+                              FontSize="80" />
+                    </TextBlock>
+                <Image Source="/Assets/placeholder-small.jpg"
+                       Width="140" />
+            </StackPanel>
+            <StackPanel Grid.Column="1"
+                        Grid.Row="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="30">
+                <Button x:Name="LoginButton"
+                        Click="LoginButton_Click">Login</Button>
+                <Button x:Name="RegisterButton"
+                        Click="RegisterButton_Click">Registration</Button>
+            </StackPanel>
+        </Grid>
+    </Page>

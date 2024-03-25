@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="CurioConnect.Account.MainAccountPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CurioConnect.Account"
+    xmlns:localmodel="using:CurioConnect.Model"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0"
+                    Grid.Row="0"
+                    Background="#03357C" />
+        <StackPanel Grid.Column="0"
+                    Grid.Row="1"
+                    Background="#F8AECD" />
+        <!-- Linksboven: Naam van de ingelogde gebruiker -->
+        <TextBlock Grid.Column="1"
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="24"
+                    Margin="20,0,0,0"
+                    Text="{x:Bind LoggedInUserName}" />
+
+        <!-- Onderste rij: ListView met matches -->
+        <ListView Grid.Column="1"
+                  Grid.Row="1"
+                  Margin="20"
+                  x:Name="matchListView">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="localmodel:Match">
+                    <StackPanel>
+                    <TextBlock Text="{Binding MatchedUser.Name}"
+                               FontSize="18" />
+                </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
