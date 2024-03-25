@@ -16,6 +16,8 @@ using System.Collections.ObjectModel;
 using CurioConnect.Data;
 using CurioConnect.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.UI.Xaml.Media.Imaging;
+using CurioConnect.Main;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,6 +34,39 @@ namespace CurioConnect.Account
             this.InitializeComponent();
             LoadCurrentUserAndMatches();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            // Controleer of de navigatieparameter de Id van de nieuwe gebruiker bevat
+            if (e.Parameter != null && e.Parameter is int userId)
+            {
+                using (var context = new AppDbContext())
+                {
+                    // Selecteer de nieuwe gebruiker op basis van de ontvangen Id
+                    var newUser = context.Users.FirstOrDefault(u => u.Id == userId);
+                    if (newUser != null)
+                    {
+                        // Stel de nieuwe gebruiker in als de CurrentUser
+                        User.CurrentUser = newUser;
+
+                        // Geef de naam van de ingelogde gebruiker weer
+                        LoggedInUserName = newUser.Name;
+
+                        // Laad de foto van de gebruiker
+                        if (!string.IsNullOrEmpty(newUser.Photo))
+                        {
+                            // Set de source van de afbeelding naar de foto van de gebruiker
+                            userImage.Source = new BitmapImage(new Uri(newUser.Photo));
+                        }
+                        // Laad de matches van de nieuwe gebruiker in de ListView
+                        matchListView.ItemsSource = newUser.Matches;
+                    }
+                }
+            }
+        }
+
 
         private void LoadCurrentUserAndMatches()
         {
@@ -54,11 +89,23 @@ namespace CurioConnect.Account
 
         }
         
-
         // Property voor de naam van de ingelogde gebruiker
         public string LoggedInUserName { get; set; }
+
+        private void deleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            // Verwijder de huidige gebruiker uit de database
+            using (var db = new AppDbContext())
+            {
+                var currentUser = User.CurrentUser;
+                db.Users.Remove(currentUser);
+                db.SaveChanges();
+            }
+
+            // Navigeer terug naar de MainCurioConnect-pagina
+            this.Frame.Navigate(typeof(MainCurioConnect));
+        }
     }
-    
 }
     
 

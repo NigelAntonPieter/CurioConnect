@@ -20,6 +20,7 @@ using CurioConnect.Data;
 using CurioConnect.Model;
 using CurioConnect.Main;
 using CurioConnect.Utility;
+using CurioConnect.Account;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -62,10 +63,10 @@ namespace CurioConnect.Registration
                 Password   = SecureHasher.Hash (passwordPB.Password),
                Photo = copiedFile.Path
             };
-
+            newUser.Matches = new List<Match>();
             db.Users.Add(newUser);
             db.SaveChanges();
-            this.Frame.Navigate(typeof(MainCurioConnect));
+            this.Frame.Navigate(typeof(MainAccountPage), newUser.Id);
         }
 
         private async Task SelectAndCopyFileAsync()

@@ -28,12 +28,26 @@
                     Background="#F8AECD" />
         <!-- Linksboven: Naam van de ingelogde gebruiker -->
         <TextBlock Grid.Column="1"
-                    Grid.Row="0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    FontSize="24"
-                    Margin="20,0,0,0"
-                    Text="{x:Bind LoggedInUserName}" />
+                   Grid.Row="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   FontSize="24"
+                   Margin="20,0,0,0"
+                   Text="{x:Bind LoggedInUserName}" />
+        <Image Grid.Column="1"
+               Grid.Row="0"
+               x:Name="userImage"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Width="100"
+               Height="100"
+               Margin="10,50,0,0" />
+        <Button Grid.Column="1"
+                Grid.Row="0"
+                HorizontalAlignment="Right"
+                x:Name="deleteUser"
+                Click="deleteUser_Click">delete</Button>
+                
 
         <!-- Onderste rij: ListView met matches -->
         <ListView Grid.Column="1"
