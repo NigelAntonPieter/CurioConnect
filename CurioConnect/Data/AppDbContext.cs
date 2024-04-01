@@ -2,6 +2,7 @@
 using CurioConnect.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace CurioConnect.Data
                 .HasForeignKey<User>(u => u.QuizId);
 
             modelBuilder.Entity<User>().HasData(
-           new User { Id = 1, Name = "Max Power", Email = "max.power@example.com", Password = SecureHasher.Hash("SuperSecret1"), Course = "Techniek en Industrie", Gender = "Male" },
+           new User { Id = 1, Name = "Max Power", Email = "max.power@example.com", Password = SecureHasher.Hash("SuperSecret1"), Course = "Techniek en Industrie", Gender = "Male",},
            new User { Id = 2, Name = "Luna Light", Email = "luna.light@example.com", Password = SecureHasher.Hash("Moonlight42"), Course = "Techniek en Technologie", Gender = "Female" },
            new User { Id = 3, Name = "Rocky Road", Email = "rocky.road@example.com", Password = SecureHasher.Hash("Mountain77"), Course = "Economie en Onderneming", Gender = "Male" },
            new User { Id = 4, Name = "Stella Star", Email = "stella.star@example.com", Password = SecureHasher.Hash("Galaxy123"), Course = "Logistiek en Mobiliteittechniek", Gender = "Female" },

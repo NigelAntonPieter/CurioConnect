@@ -17,6 +17,7 @@ namespace CurioConnect.Model
         public string Photo {  get; set; }
         public string Gender { get; set; }
 
+        public string ImagePathWithFallBack => Photo ?? "ms-appx:///Assets/placeholder-small.jpg";
         public static User CurrentUser { get; set; }
 
         public int? QuizId { get; set; }

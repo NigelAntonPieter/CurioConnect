@@ -27,13 +27,7 @@
                     Grid.Row="1"
                     Background="#F8AECD" />
         <!-- Linksboven: Naam van de ingelogde gebruiker -->
-        <TextBlock Grid.Column="1"
-                   Grid.Row="0"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   FontSize="24"
-                   Margin="20,0,0,0"
-                   Text="{x:Bind LoggedInUserName}" />
+       
         <Image Grid.Column="1"
                Grid.Row="0"
                x:Name="userImage"
@@ -41,14 +35,21 @@
                VerticalAlignment="Top"
                Width="100"
                Height="100"
-               Margin="10,50,0,0" />
+               Margin="10,50,0,0"/>
+        <TextBlock Grid.Column="1"
+                   Grid.Row="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   FontSize="24"
+                   Margin="20,0,0,0"
+                   Text="{x:Bind LoggedInUserName}" />
         <Button Grid.Column="1"
                 Grid.Row="0"
                 HorizontalAlignment="Right"
+                VerticalAlignment="Top"
                 x:Name="deleteUser"
                 Click="deleteUser_Click">delete</Button>
                 
-
         <!-- Onderste rij: ListView met matches -->
         <ListView Grid.Column="1"
                   Grid.Row="1"
@@ -56,10 +57,17 @@
                   x:Name="matchListView">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="localmodel:Match">
-                    <StackPanel>
-                    <TextBlock Text="{Binding MatchedUser.Name}"
-                               FontSize="18" />
-                </StackPanel>
+                    <StackPanel BorderBrush="White"
+                                BorderThickness="2"
+                                Margin="0,0,0,10">
+                        <Image Source="{Binding MatchedUser.ImagePathWithFallBack}"
+                               Width="100"
+                               Height="100"
+                               Stretch="Uniform" 
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding MatchedUser.Name}" FontSize="20"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -38,9 +38,12 @@
                               Foreground="#F8AECD"
                               FontSize="80" />
                     </TextBlock>
-                <Image Source="/Assets/placeholder-small.jpg"
-                       Width="140" />
-            </StackPanel>
+            <Image Source="/Assets/Untitled.png"  Width="200"/>
+
+
+
+
+        </StackPanel>
             <StackPanel Grid.Column="1"
                         Grid.Row="1"
                         Orientation="Horizontal"

@@ -33,6 +33,44 @@ namespace CurioConnect.Account
         {
             this.InitializeComponent();
             LoadCurrentUserAndMatches();
+            
+        }
+
+        private void LoadCurrentUserAndMatches()
+        {
+            var currentUser = GetDefaultUser();
+            if (currentUser != null)
+            {
+                // Stel de huidige gebruiker in
+                User.CurrentUser = currentUser;
+
+                // Geef de naam van de ingelogde gebruiker weer
+                LoggedInUserName = currentUser.Name;
+
+                // Laad de foto van de gebruiker met fallback
+                if (!string.IsNullOrEmpty(currentUser.Photo))
+                {
+                    // Set de source van de afbeelding naar de foto van de gebruiker
+                    userImage.Source = new BitmapImage(new Uri(currentUser.Photo));
+                }
+                else
+                {
+                    // Als er geen foto is, gebruik de fallback-afbeelding
+                    userImage.Source = new BitmapImage(new Uri(currentUser.ImagePathWithFallBack));
+                }
+
+                // Laad de matches van de huidige gebruiker in de ListView
+                matchListView.ItemsSource = currentUser.Matches;
+            }
+        }
+
+        private User GetDefaultUser()
+        {
+            using (var context = new AppDbContext())
+            {
+                // Query om de standaardgebruiker met ID 1 te selecteren
+                return context.Users.Include(u => u.Matches).ThenInclude(m => m.MatchedUser).FirstOrDefault(u => u.Id == 1);
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -60,35 +98,24 @@ namespace CurioConnect.Account
                             // Set de source van de afbeelding naar de foto van de gebruiker
                             userImage.Source = new BitmapImage(new Uri(newUser.Photo));
                         }
+                        else
+                        {
+                            // Als er geen foto is, gebruik de fallback-afbeelding
+                            userImage.Source = new BitmapImage(new Uri(newUser.ImagePathWithFallBack));
+                        }
                         // Laad de matches van de nieuwe gebruiker in de ListView
                         matchListView.ItemsSource = newUser.Matches;
                     }
                 }
             }
-        }
-
-
-        private void LoadCurrentUserAndMatches()
-        {
-            using (var context = new AppDbContext())
+            else
             {
-                // Query om de gebruiker met ID 1 te selecteren
-                var currentUser = context.Users.Include(u => u.Matches).ThenInclude(m => m.MatchedUser). FirstOrDefault(u => u.Id ==1);
-                if (currentUser != null)
-                {
-                    // Stel de huidige gebruiker in
-                    User.CurrentUser = currentUser;
-
-                    // Geef de naam van de ingelogde gebruiker weer
-                    LoggedInUserName = currentUser.Name;
-
-                    // Laad de matches van de huidige gebruiker in de ListView
-                    matchListView.ItemsSource = currentUser.Matches;
-                }
+                // Als er geen nieuwe gebruiker is, laad de standaardgebruiker en zijn matches
+                LoadCurrentUserAndMatches();
             }
-
         }
-        
+
+
         // Property voor de naam van de ingelogde gebruiker
         public string LoggedInUserName { get; set; }
 
